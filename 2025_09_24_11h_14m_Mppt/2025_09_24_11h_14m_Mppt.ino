@@ -34,7 +34,9 @@ void core0Task(void * parameter){
 // Task for Core 1 (Background / monitoring)
 void core1Task(void * parameter){
   while(true){
-    Charging_Algorithm();    
+    Charging_Algorithm();   
+    sendToSheets(panelVoltage, panelCurrent, batVoltage, batCurrent); 
+ 
   }
 }
 
@@ -49,6 +51,7 @@ void setup() {
 
   // Set initial duty cycle
   ledcWrite(PWM_CHANNEL, dutyCycle);
+  sheetsInit();
 
 
 
