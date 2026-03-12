@@ -1,3 +1,6 @@
+volatile float vPV  = 0.0;
+volatile float vOUT = 0.0;
+
 #include <Wire.h>
 #include <Adafruit_ADS1X15.h>
 
@@ -61,6 +64,7 @@ void setup() {
   ledcAttach(HIN_PIN, pwmFreq, pwmResolution);
 
   Serial.println("Closed Loop Buck Control Ready");
+  sheetsInit();
 }
 
 void loop() {
@@ -82,8 +86,10 @@ void loop() {
   int16_t adcPV  = ads.readADC_SingleEnded(0);
   int16_t adcOUT = ads.readADC_SingleEnded(1);
 
-  float vPV  = (adcPV  * 0.125 / 1000.0) * ratio1;
-  float vOUT = (adcOUT * 0.125 / 1000.0) * ratio2;
+  vPV  = (adcPV  * 0.125 / 1000.0) * ratio1;
+  vOUT = (adcOUT * 0.125 / 1000.0) * ratio2;
+
+  sendToSheets(vPV, vOUT, iSolar, iOut);
 
   if (vPV < 1.0) return;
 

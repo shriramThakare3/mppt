@@ -1,3 +1,4 @@
+
 #include <Arduino.h>
 
 // Buck converter MOSFET control pin
@@ -26,8 +27,8 @@ int dutyCycle = 512;          // Start at 50% duty (range: 0–1023)
 // Task for Core 0 (Real-time / control)
 void core0Task(void * parameter){
   while(true){
- 
-  
+    Charging_Algorithm():
+    sendTOSheets(vPV,vOUT);
   }
 }
 
@@ -51,6 +52,7 @@ void setup() {
 
   // Set initial duty cycle
   ledcWrite(PWM_CHANNEL, dutyCycle);
+  
   sheetsInit();
 
 
